@@ -17,6 +17,18 @@ public class TaskAdapter extends BaseAdapter {
     private LayoutInflater mLayoutInflater;
     private List<Task> mTaskList;
 
+    public static class ViewHolder{
+        public TextView titleTextView;
+        public TextView timestampTextView;
+        public TextView categoryTextView;
+
+        public ViewHolder(View view){
+            titleTextView = view.findViewById(R.id.title);
+            timestampTextView = view.findViewById(R.id.timestamp);
+            categoryTextView = view.findViewById(R.id.category);
+        }
+    }
+
     public TaskAdapter(Context context) {
         mLayoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
@@ -43,20 +55,25 @@ public class TaskAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup viewGroup) {
 
-        if (convertView == null) {
-            convertView = mLayoutInflater.inflate(android.R.layout.simple_list_item_2, null);
-        }
+        final ViewHolder viewHolder;
 
-        TextView textView1 = (TextView) convertView.findViewById(android.R.id.text1);
-        TextView textView2 = (TextView) convertView.findViewById(android.R.id.text2);
+        if (convertView == null) {
+            convertView = mLayoutInflater.inflate(R.layout.task_item, null);
+            viewHolder = new ViewHolder(convertView);
+            convertView.setTag(viewHolder);
+        } else {
+            viewHolder = (ViewHolder) convertView.getTag();
+        }
 
         // 後でTaskクラスから情報を取得するように変更する
 //        textView1.setText(mTaskList.get(position));
-        textView1.setText(mTaskList.get(position).getTitle());
+        viewHolder.titleTextView.setText(mTaskList.get(position).getTitle());
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.JAPANESE);
         Date date = mTaskList.get(position).getDate();
-        textView2.setText(simpleDateFormat.format(date));
+        viewHolder.timestampTextView.setText(simpleDateFormat.format(date));
+
+        viewHolder.categoryTextView.setText(mTaskList.get(position).getCategory());
 
         return convertView;
     }
