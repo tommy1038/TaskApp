@@ -132,13 +132,13 @@ public class MainActivity extends AppCompatActivity {
 
         reloadListView();
 
-        Intent intent = getIntent();
-        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
-            String query = intent.getStringExtra(SearchManager.QUERY);
-            Log.d("Query", query);
-            selectListView(query);
-//            finish();
-        }
+//        Intent intent = getIntent();
+//        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
+//            String query = intent.getStringExtra(SearchManager.QUERY);
+//            Log.d("Query", query);
+//            selectListView(query);
+////            finish();
+//        }
     }
 
     private void reloadListView() {
@@ -202,7 +202,9 @@ public class MainActivity extends AppCompatActivity {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-//                Log.d("QueryTextSubmit", query);
+                Log.d("QueryTextSubmit", query);
+                selectListView(query);
+                if(query.isEmpty()) reloadListView();
                 return false;
             }
 

@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -22,7 +24,7 @@ public class TaskAdapter extends BaseAdapter {
         public TextView timestampTextView;
         public TextView categoryTextView;
 
-        public ViewHolder(View view){
+        public ViewHolder(@NotNull View view){
             titleTextView = view.findViewById(R.id.title);
             timestampTextView = view.findViewById(R.id.timestamp);
             categoryTextView = view.findViewById(R.id.category);
